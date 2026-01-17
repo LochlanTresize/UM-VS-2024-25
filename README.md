@@ -34,34 +34,37 @@ For manual compilation I recommend using a `Makefile` with the following content
 main: poster.pdf
 
 poster.pdf: 
-	# latexmk -lualatex='lualatex -interaction nonstopmode' -pdf poster.tex
 	latexmk -pdflua  poster.tex
 
 clean: latexmkrc
 	latexmk -pdflua -C
 ```
-You can then compile the poster by running `make`, and remove the auxilliary files by running `make clean`. Make sure this file is in the same directory as `poster.tex`. This `Makefile` depends on a `latexmkrc`, see below. If you don't have one of these remove this word from the file.
+You can compile the poster by running `make` and remove the auxilliary files by running `make clean`. Put this file is in the same directory as `poster.tex`. This `Makefile` depends on a `.latexmkrc` file to help with better cleaning, see below. If you don't have one of these remove this word from the file.
 
 ### Using vimtex to compile
 To allow continuous compile with lualatex, add the following line to your `.latexmkrc` file in the project directory:
 ```perl
 $lualatex = 'lualatex --interaction=nonstopmode';
 ```
-The poster templates repo has a `.latexmkrc` file that you can use to help with `bibtex` generation and the cleaning process (done by either `VimTex`, `latexmk` or the `Makefile` above). This command sets flags that `lualatex` executes when `lualatex` is called. For example, this call happens when executing
+This command sets flags that `lualatex` executes when `lualatex` is called. For example, this call happens when executing
 ```bash
 latexmk -pdflua 
 ```
-and passing possible addition flags, such as `-C` during cleaning in the above `Makefile`.
+and passing possible addition flags, such as `-C` during cleaning in the above `Makefile`. Note that `-pdflua` calls `lualatex` to generate a `.pdf`. 
+
 To ensure vimtex actually calls `lualatex` you need to add
 ```tex
 %! Tex Program = lualatex
 ```
-To the first line of the `poster.tex` file.
+to the first line of the `poster.tex` file.
+
+
+The poster templates repo has a `.latexmkrc` file that you can use to help with `bibtex` generation and the cleaning process (done by either `VimTex`, `latexmk` or the `Makefile` above). Copy these lines into you `.latexmkrc` file if you want the better cleaning and `bibtex` generation.
 
 The overall call process is as follows:
 1. You run `:VimtexCompile` (e.g. by running `<localleader>ll`).
-2. `VimTex` calls `lualatex` to compile the main file (`poster.tex`) by using `latexmk`.
-3. `latexmk` looks for `latexmkrc` files, and in our case finds the variable `$lualatex` set above, and uses its value as the compilation command. The `--interaction=nonstopmode` allows `VimTex` to compile on-save by stopping the (lualatex) engine halting-on-error.
+2. `VimTex` calls `lualatex` to compile the main file (`poster.tex`). This is facilitated by `latexmk`.
+3. `latexmk` looks for `.latexmkrc` files, and in our case finds the variable `$lualatex` set above, and uses its value as the compilation command. The `--interaction=nonstopmode` allows `VimTex` to compile on-save by stopping the (lualatex) engine halting-on-error.
 
 Note: I have to run `make` to first generate aux files, then I can use `VimTex`. Not doing so causes my window manager to crash. Hopefully you don't encounter this issue. I'll test this in a Docker container when I get time.
 
@@ -86,5 +89,5 @@ to generate a `submission.pdf` file with the desired dimensions
 ```
 Page size:       1190.55 x 1683.78 pts (A2)
 ```
-and verified the output was ok. I'm pretty sure I got these commands from [this StackExchange thread](https://superuser.com/questions/676013/scaling-pdf-content-and-page-dimensions-from-command-line).
+and verified the output pdf was ok. I'm pretty sure I got the `pdfjam` command from [this StackExchange thread](https://superuser.com/questions/676013/scaling-pdf-content-and-page-dimensions-from-command-line).
 
