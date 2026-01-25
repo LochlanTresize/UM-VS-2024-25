@@ -12,7 +12,7 @@ You can contact me at leastwood [at] student [dot] unimelb [dot] edu [dot] au fo
 # Tips for future students
 
 ## Writing a poster
-Besides what I have written above, try to keep the poster very readable and approachable. As in, don't overload your poster with calculations. You should mention key techniques that are important in your work, but not include step-by-step details. In my project I used the important technique of stationary phase in a few calculations. Instead of showing off this technique in calculations, save the clutter from the equations and talk about how the technique allows you to solve a problem in your work. This helps with readability and helping the audience connect how the technique might be useful in their own work).
+Besides what I have written above, try to keep the poster very readable and approachable. As in, don't overload your poster with calculations. You should mention key techniques that are important in your work, but not include step-by-step details. In my project I used the important technique of stationary phase in a few calculations. Instead of showing off this technique in calculations, save the clutter from the equations and talk about how the technique allows you to solve a problem in your work. This helps with readability and helping the audience connect how the technique might be useful in their own work.
 
 Use lots of diagrams too. Flow charts for how different propositions fit together are great, and are a good way to show where a conjecture could lead things.
 
@@ -27,7 +27,7 @@ latexmk -pdflua poster.tex
 ```
 This tells `latexmk` to use `lualatex` to compile the project instead of the default engine.
 
-For manual compilation I recommend using a `Makefile` with the following contents (adapted from the `Makefile` in the above templates repo):
+For manual compilation I recommend using a `Makefile` with the following content (adapted from the `Makefile` in the above templates repo):
 ```Makefile
 .PHONY: main clean 
 
@@ -39,7 +39,7 @@ poster.pdf:
 clean: latexmkrc
 	latexmk -pdflua -C
 ```
-You can compile the poster by running `make` and remove the auxilliary files by running `make clean`. Put this file is in the same directory as `poster.tex`. This `Makefile` depends on a `.latexmkrc` file to help with better cleaning, see below. If you don't have one of these remove this word from the file.
+You can compile the poster by running `make` and remove the auxilliary files by running `make clean`. Put this file is in the same directory as `poster.tex`. This `Makefile` depends on a `.latexmkrc` file to help with better cleaning, see below. If you don't have one of these remove the instances of this word from the `Makefile`.
 
 ### Using vimtex to compile
 To allow continuous compile with lualatex, add the following line to your `.latexmkrc` file in the project directory:
@@ -50,7 +50,7 @@ This command sets flags that `lualatex` executes when `lualatex` is called. For 
 ```bash
 latexmk -pdflua 
 ```
-and passing possible addition flags, such as `-C` during cleaning in the above `Makefile`. Note that `-pdflua` calls `lualatex` to generate a `.pdf`. 
+and passing possible additional flags (such as `-C` during cleaning in the above `Makefile`). Note that `-pdflua` calls `lualatex` to generate a `.pdf`. 
 
 To ensure vimtex actually calls `lualatex` you need to add
 ```tex
@@ -77,7 +77,7 @@ Running `pdfinfo poster.pdf` we see
 ```
 Page size:       2409.45 x 3401.58 pts
 ```
-These dimensions are 2.02 times that of an a2 page size:
+These dimensions are approx. 2 times that of an a2 page size:
 ```
 Page size:       1190.55 x 1683.78 pts (A2)
 ```
